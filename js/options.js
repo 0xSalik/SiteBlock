@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const blockedWebsitesTextarea = document.getElementById("blockedWebsites");
   const saveButton = document.getElementById("saveButton");
 
-  // Load blocked websites from storage and populate the textarea
   chrome.storage.sync.get(["blockedWebsites"], function (result) {
     const blockedWebsites = result.blockedWebsites || [];
     blockedWebsitesTextarea.value = blockedWebsites.join("\n");
@@ -13,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
       .split("\n")
       .filter((website) => website.trim() !== "");
     chrome.storage.sync.set({ blockedWebsites }, function () {
-      alert("Options Saved!");
+      alert("Blocked websites saved!");
     });
   });
 });

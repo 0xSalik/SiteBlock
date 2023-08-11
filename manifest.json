@@ -11,13 +11,6 @@
     "page": "html/options.html",
     "open_in_tab": true
   },
-  "content_scripts": [
-    {
-      "matches": ["<all_urls>"],
-      "js": ["js/content.js"],
-      "run_at": "document_start"
-    }
-  ],
   "icons": {
     "16": "./icons/icon16.png",
     "48": "./icons/icon48.png",
