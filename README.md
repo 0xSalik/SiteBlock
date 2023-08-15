@@ -40,4 +40,4 @@ If you have any questions or feedback, feel free to contact me using any contact
 
 ## Acknowledgements
 
-- [List any acknowledgements or libraries used.]
+- Used [new.css](https://newcss.net) for html pages.
