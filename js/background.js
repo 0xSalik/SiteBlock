@@ -5,10 +5,14 @@ chrome.webNavigation.onBeforeNavigate.addListener(function (details) {
   chrome.storage.sync.get(["blockedWebsites"], function (result) {
     const blockedWebsites = result.blockedWebsites || [];
 
-    if (blockedWebsites.some((website) => hostname.includes(website))) {
-      chrome.tabs.update(details.tabId, {
-        url: chrome.runtime.getURL("html/blocked.html"),
-      });
+    for (const website of blockedWebsites) {
+      const pattern = new RegExp(`^(www\\.)?${website.replace(/\./g, "\\.")}$`);
+      if (pattern.test(hostname)) {
+        chrome.tabs.update(details.tabId, {
+          url: chrome.runtime.getURL("html/blocked.html"),
+        });
+        break;
+      }
     }
   });
 });
