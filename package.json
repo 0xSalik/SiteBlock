@@ -1,0 +1,12 @@
+{
+  "name": "siteblock",
+  "version": "2.0.0",
+  "private": true,
+  "description": "SiteBlock Chrome extension (MV3) with node:test suite",
+  "scripts": {
+    "test": "node --test tests/matcher.test.js tests/background.test.js tests/content.test.js tests/manifest.test.js tests/e2e.test.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

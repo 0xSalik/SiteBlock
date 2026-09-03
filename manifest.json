@@ -1,22 +1,45 @@
 {
   "manifest_version": 3,
   "name": "SiteBlock",
-  "version": "1.0.1",
-  "description": "Block unwanted sites to save time and improve focus and productivity.",
-  "permissions": ["storage", "webNavigation"],
+  "version": "2.0.0",
+  "description": "Block distracting sites instantly. Wildcards, schedules, quick pause, and private local storage.",
+  "minimum_chrome_version": "116",
+  "permissions": [
+    "storage",
+    "webNavigation",
+    "tabs",
+    "declarativeNetRequest",
+    "declarativeNetRequestFeedback",
+    "alarms"
+  ],
+  "host_permissions": ["http://*/*", "https://*/*"],
   "background": {
     "service_worker": "js/background.js"
   },
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["js/content.js"],
+      "run_at": "document_start",
+      "all_frames": false
+    }
+  ],
   "options_ui": {
     "page": "html/options.html",
     "open_in_tab": true
   },
   "icons": {
-    "16": "./icons/icon16.png",
-    "48": "./icons/icon48.png",
-    "128": "./icons/icon128.png"
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
   },
   "action": {
-    "default_popup": "html/options.html"
+    "default_popup": "html/popup.html",
+    "default_title": "SiteBlock",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
   }
 }

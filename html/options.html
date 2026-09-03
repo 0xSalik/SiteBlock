@@ -1,47 +1,90 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>SiteBlock Extension Settings</title>
+    <meta charset="utf-8" />
+    <title>SiteBlock Settings</title>
     <link rel="stylesheet" href="../css/new.css" />
     <link rel="stylesheet" href="../css/inter.css" />
-    <script type="text/javascript" src="../js/siteblock.js"></script>
-    <script type="text/javascript" src="../js/options.js"></script>
+    <style>
+      body { max-width: 760px; margin: 0 auto; padding: 1.5rem 1rem 4rem; }
+      .card { border: 1px solid #ccc; border-radius: 10px; padding: 1rem; margin: 1rem 0; }
+      .row { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
+      .grow { flex: 1; min-width: 200px; }
+      input[type="text"] { width: 100%; box-sizing: border-box; }
+      #siteList { list-style: none; padding: 0; margin: 0.5rem 0 0; }
+      #siteList li { display: flex; align-items: center; gap: 0.6rem; padding: 0.45rem 0.2rem; border-bottom: 1px solid #e3e3e3; }
+      #siteList li:last-child { border-bottom: none; }
+      .pat { font-family: ui-monospace, monospace; font-weight: 600; word-break: break-all; flex: 1; }
+      .count { font-size: 0.8em; opacity: 0.65; white-space: nowrap; }
+      .muted { opacity: 0.72; font-size: 0.9em; }
+      .pill { font-size: 0.78em; border: 1px solid #bbb; border-radius: 999px; padding: 0.05rem 0.55rem; white-space: nowrap; }
+      .danger { color: #b3261e; }
+      code { font-size: 0.9em; }
+      #msg { min-height: 1.4em; font-weight: 600; }
+      textarea { width: 100%; box-sizing: border-box; font-family: ui-monospace, monospace; }
+      .footer { position: fixed; left: 0; bottom: 0; width: 100%; text-align: center; background: var(--nc-bg-1, #fff); border-top: 1px solid #eee; }
+    </style>
   </head>
   <body>
-    <h1>SiteBlock</h1>
-    <br />
-    <p id="status"></p>
-    <form>
-      List of sites to be blocked:<br />
-      <textarea
-        spellcheck="false"
-        id="blockedWebsites"
-        cols="60"
-        rows="15"
-      ></textarea>
-      <br />
-      <input id="saveButton" type="button" value="Save Options" />
-    </form>
-    <br />
+    <h1>🧱 SiteBlock</h1>
+    <p class="muted">Block distracting sites instantly. Your list never leaves this device.</p>
+    <p id="msg"></p>
+
+    <div class="card">
+      <h3>Add a site</h3>
+      <div class="row">
+        <input id="newSite" class="grow" type="text" spellcheck="false" autocomplete="off"
+          placeholder="e.g. facebook.com, *.example.com, *bet*, youtube.com/shorts" />
+        <button id="addBtn">Block</button>
+      </div>
+      <p class="muted">
+        <code>facebook.com</code> blocks facebook.com + all subdomains (www, m…).
+        Use <code>*.example.com</code> for subdomains only, <code>*keyword*</code> for
+        anything containing a word, <code>youtube.com/shorts</code> for one section of a site.
+      </p>
+    </div>
+
+    <div class="card">
+      <div class="row">
+        <h3 class="grow" style="margin:0">Blocked sites (<span id="siteCount">0</span>)</h3>
+        <input id="search" type="text" placeholder="Filter…" style="max-width:180px" />
+      </div>
+      <ul id="siteList"></ul>
+      <p class="muted" id="emptyNote" hidden>No sites blocked yet. Add one above ☝️</p>
+    </div>
+
+    <div class="card">
+      <h3>Focus controls</h3>
+      <div class="row">
+        <button data-pause="5">⏸ Pause 5m</button>
+        <button data-pause="25">⏸ Pause 25m</button>
+        <button data-pause="60">⏸ Pause 1h</button>
+        <button id="resumeBtn">▶ Resume now</button>
+        <span class="pill" id="pauseState">Blocking is ON</span>
+      </div>
+      <p class="muted" id="statsLine"></p>
+    </div>
+
+    <div class="card">
+      <h3>Backup</h3>
+      <div class="row">
+        <button id="exportBtn">Export list</button>
+        <button id="importToggle">Import</button>
+        <button id="clearBtn" class="danger">Delete all</button>
+      </div>
+      <div id="importBox" hidden style="margin-top:0.6rem">
+        <textarea id="importText" rows="6" spellcheck="false" placeholder="Paste one site per line, then click Confirm import"></textarea>
+        <div class="row" style="margin-top:0.4rem">
+          <button id="importConfirm">Confirm import</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>SiteBlock • list stored locally • developed by <a href="https://salikkhan.com" target="_blank" rel="noreferrer">Salik Khan</a></p>
+    </div>
+
+    <script src="../js/matcher.js"></script>
+    <script src="../js/options.js"></script>
   </body>
-  <style>
-    .footer {
-      position: fixed;
-      left: 0;
-      bottom: 0;
-      width: 100%;
-      text-align: center;
-    }
-  </style>
-  <div class="footer">
-    <p>
-      Extension developed and maintained by
-      <a
-        href="https://salikkhan.com"
-        target="_blank"
-        referrerpolicy="no-referrer"
-        >Salik Khan</a
-      >.
-    </p>
-  </div>
 </html>

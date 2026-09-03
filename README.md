@@ -26,6 +26,28 @@ SiteBlock is a Chrome browser extension that empowers users to take control of t
 
 5. Visit a blocked website to see the redirection.
 
+## Blocking rules
+
+- `facebook.com` blocks the apex domain plus all subdomains (`www`, `m`, …).
+- `*.example.com` blocks subdomains (and the apex, via DNR).
+- `*keyword*` blocks any host containing a word (e.g. `*bet*`).
+- `youtube.com/shorts` blocks one section of a site but leaves the rest alone.
+
+Pasting full URLs works too — `https://www.facebook.com/` normalizes to `facebook.com`.
+
+## Testing
+
+No dependencies, just Node 18+ (built-in `node:test` runner):
+
+```sh
+npm test
+```
+
+128 tests across 5 files: matcher unit tests, background worker tests
+(behind a functional in-memory `chrome.*` mock), content-script tests,
+manifest/HTML integrity tests, and end-to-end user journeys
+(install → block → navigate → stats → temp-allow → pause/resume → unblock).
+
 ## Contributing
 
 Contributions are welcome! Please refer to our [Contributing Guidelines](CONTRIBUTING.md) for more details.
